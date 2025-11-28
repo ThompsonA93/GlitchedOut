@@ -1,6 +1,5 @@
 # Glitched Out
 
-
 Core:
 - 2D Sidescrolling Plattformer
 
