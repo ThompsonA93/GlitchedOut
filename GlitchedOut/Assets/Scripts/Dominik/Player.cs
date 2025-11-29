@@ -34,6 +34,15 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
         }
 
+        //Stop moving
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            rb.linearVelocity = new Vector2(-moveSpeed/3, rb.linearVelocity.y);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            rb.linearVelocity = new Vector2(moveSpeed/3, rb.linearVelocity.y);
+        }
 
         //Jump
 
