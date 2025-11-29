@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
 
         //Stop moving
-        if (isGrounded) { 
+        if (true) { 
             if (Input.GetKeyUp(KeyCode.A))
             {
                 rb.linearVelocity = new Vector2(-moveSpeed / 3, rb.linearVelocity.y);
