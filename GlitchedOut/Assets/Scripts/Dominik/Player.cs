@@ -34,15 +34,7 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
         }
 
-        //Stop moving
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            rb.linearVelocity = new Vector2(-moveSpeed/3, rb.linearVelocity.y);
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            rb.linearVelocity = new Vector2(moveSpeed/3, rb.linearVelocity.y);
-        }
+        
 
         //Jump
 
@@ -50,6 +42,18 @@ public class Player : MonoBehaviour
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space)) {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        //Stop moving
+        if (isGrounded) { 
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                rb.linearVelocity = new Vector2(-moveSpeed / 3, rb.linearVelocity.y);
+            }
+            else if (Input.GetKeyUp(KeyCode.D))
+            {
+                rb.linearVelocity = new Vector2(moveSpeed / 3, rb.linearVelocity.y);
+            }
         }
 
 
