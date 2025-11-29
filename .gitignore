@@ -103,3 +103,5 @@ GlitchedOut/Library
 GlitchedOut/Logs
 GlitchedOut/Temp
 GlitchedOut/UserSettings
+
+*.cache
