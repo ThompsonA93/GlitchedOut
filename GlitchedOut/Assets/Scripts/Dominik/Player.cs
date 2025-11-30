@@ -31,7 +31,15 @@ public class Player : MonoBehaviour
     {
         // Refactored :: Set checks at start to see if sounds play or not
         bool isMoving = false;
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        var hit = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = hit != null;
+        if (isGrounded)
+        {
+            var desiredPosition = hit.ClosestPoint(groundCheck.position);
+            desiredPosition.x = transform.position.x;
+            transform.position = desiredPosition + new Vector2(0, groundCheckRadius) - (Vector2) groundCheck.localPosition;
+        }
 
         // Move & set flag for Walking SFX
         if (isGrounded && Input.GetKey(KeyCode.A))
