@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,62 +13,65 @@ public class Player : MonoBehaviour
     public float groundCheckRadius= 0.2f;
     private bool isGrounded;
 
-    // Audio-related variables
-    public AudioSource playerAudioSource; 
-    public AudioClip jumpSound;           
+    // Audio-related variables, 2 sources required as otherwise walking overwrites jumping/Collission
+    public AudioSource playerAudioSource;      // For Walking
+    public AudioSource sfxAudioSource;         // For one-shot SFX (Jump, Collision)
+    public AudioClip jumpSound;
     public AudioClip moveSound;
     public AudioClip collisionSound;
     private bool isMovingSoundPlaying = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerAudioSource = GetComponent<AudioSource>();
-    }
+        // Get ALL AudioSource components attached to the player
+        AudioSource[] sources = GetComponents<AudioSource>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Refactored :: Set checks at start to see if sounds play or not
-        bool isMoving = false;
-
-        var hit = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        isGrounded = hit != null;
-        if (isGrounded)
+        if (sources.Length >= 2)
         {
-            var desiredPosition = hit.ClosestPoint(groundCheck.position);
-            desiredPosition.x = transform.position.x;
-            transform.position = desiredPosition + new Vector2(0, groundCheckRadius) - (Vector2) groundCheck.localPosition;
+            playerAudioSource = sources[0];
+            sfxAudioSource = sources[1];
         }
 
-        // Move & set flag for Walking SFX
-        if (isGrounded && Input.GetKey(KeyCode.A))
+    }
+
+    void Update()
+    {
+        bool isMoving = false;
+
+        //Move
+        if (Input.GetKey(KeyCode.A))
         {
             rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
             isMoving = true;
         }
-        else if (isGrounded && Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
             isMoving = true;
         }
 
-        // Jump & play sfx
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space)) 
+        //Jump
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            playerAudioSource.PlayOneShot(jumpSound);
+            if (sfxAudioSource != null)
+            {
+                sfxAudioSource.PlayOneShot(jumpSound);
+            }
         }
-
-        // Not Jumping => Play walk SFX when grounded
-        if (isGrounded && isMoving && !isMovingSoundPlaying) 
+        // Check for walking sound now
+        if(isGrounded && isMoving)
         {
-            //playerAudioSource.PlayOneShot(moveSound); This only rapidly plays the sfx, needs proper looping
-            playerAudioSource.loop = true;
-            playerAudioSource.clip = moveSound;
-            playerAudioSource.Play();           
-            isMovingSoundPlaying = true;        
+            if (!isMovingSoundPlaying) // Countercheck required or it will rerun play() on every frame resulting in 0 sfx
+            {
+                //playerAudioSource.PlayOneShot(moveSound); This only rapidly plays the sfx, needs proper looping
+                playerAudioSource.loop = true; // Use another audio source to not block sfx
+                playerAudioSource.clip = moveSound;
+                playerAudioSource.Play();
+                isMovingSoundPlaying = true;
+            }
         } 
         else if (isMovingSoundPlaying && (!isGrounded || !isMoving)) 
         {
@@ -75,10 +79,9 @@ public class Player : MonoBehaviour
             isMovingSoundPlaying = false;
         }
 
-
-        // Stop moving
-        if (true) 
-        { 
+        //Stop moving
+        if (true)
+        {
             if (Input.GetKeyUp(KeyCode.A))
             {
                 rb.linearVelocity = new Vector2(-moveSpeed / 3, rb.linearVelocity.y);
@@ -87,16 +90,6 @@ public class Player : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(moveSpeed / 3, rb.linearVelocity.y);
             }
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        const float minImpactVelocity = 3.0f; // Minimum collission force to play the sound
-        if (collisionSound != null && collision.relativeVelocity.magnitude > minImpactVelocity)
-        {
-            float impactVolume = Mathf.Clamp(collision.relativeVelocity.magnitude / 10f, 0.2f, 1.0f);
-            playerAudioSource.PlayOneShot(collisionSound, impactVolume);
         }
     }
 }
