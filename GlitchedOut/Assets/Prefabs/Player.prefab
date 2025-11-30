@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 108439954227520344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 5458076538791443757}
   - component: {fileID: 4365739729478375161}
   - component: {fileID: 5178509163885567660}
+  - component: {fileID: 5167915047391903973}
+  - component: {fileID: 6517689785527302138}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -146,7 +148,8 @@ MonoBehaviour:
   groundCheck: {fileID: 6512969877098384307}
   groundCheckRadius: 0.2
   playerAudioSource: {fileID: 5178509163885567660}
-  jumpSound: {fileID: 0}
+  sfxAudioSource: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 1c04a8dd0d1924949a1b0755c3bd6014, type: 3}
   moveSound: {fileID: 0}
   collisionSound: {fileID: 0}
 --- !u!50 &5458076538791443757
@@ -211,7 +214,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.78125, y: 0.78125}
+  m_Size: {x: 0.7, y: 0.98}
   m_Direction: 0
 --- !u!82 &5178509163885567660
 AudioSource:
@@ -310,3 +313,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5167915047391903973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602200653230065009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d29ea2a0ff8054ab5e936d402db5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Anim
+--- !u!95 &6517689785527302138
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602200653230065009}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 14d66da0a2de02342b913042098fab66, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

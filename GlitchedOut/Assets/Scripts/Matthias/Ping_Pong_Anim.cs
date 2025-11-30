@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_Anim : MonoBehaviour
+public class Ping_Pong_Anim : MonoBehaviour
 {
     // Init Variables
     Animator animator;
@@ -19,6 +19,5 @@ public class Player_Anim : MonoBehaviour
     {
         //Set Animator Parameters
         animator.SetFloat("Move_X", rb.linearVelocity.x);
-        animator.SetFloat("Move_Y", rb.linearVelocity.y);
     }
 }
