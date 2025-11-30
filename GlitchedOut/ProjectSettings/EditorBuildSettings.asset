@@ -14,6 +14,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Matthias/Level01.unity
     guid: 51de3a63c44cf304c94d8ef9daa99efd
+  - enabled: 1
+    path: Assets/Scenes/Bilyana/Level03.unity
+    guid: f0ef24a7e8eca7749bc125915678924f
+  - enabled: 1
+    path: Assets/Scenes/Bilyana/Level04.unity
+    guid: 02e9843d2e8f91b4ebb2afd8984d073c
+  - enabled: 1
+    path: Assets/Scenes/Thomas/Level05.unity
+    guid: fe46bcf9424c0ad4ebe62d74bf4a411f
+  - enabled: 1
+    path: Assets/Scenes/Dominik/LevelMultipleCharacters.unity
+    guid: 86363d18fc6e88147bf09d4acc39f8f8
+  - enabled: 1
+    path: Assets/Scenes/Dominik/EndScreen.unity
+    guid: fd4bf62e88439cb4bbba4c1b87dea6ed
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 0729a7854751b534ea8508f4fa0d9837
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

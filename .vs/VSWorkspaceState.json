@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\GlitchedOut",
+    "\\GlitchedOut\\Assets",
+    "\\GlitchedOut\\Assets\\Scenes",
+    "\\GlitchedOut\\Assets\\Scenes\\Matthias"
   ],
+  "SelectedNode": "\\GlitchedOut\\Assets\\Scenes\\Matthias\\Level01.unity",
   "PreviewInSolutionExplorer": false
 }
